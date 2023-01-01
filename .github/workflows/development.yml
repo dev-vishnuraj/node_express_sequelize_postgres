@@ -1,0 +1,42 @@
+name: Build and deploy to development branch
+
+on:
+  push:
+    branches: [development]
+
+jobs:
+  BackendDev:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@main
+
+      - name: Build Backend
+        run: |
+          sudo npm cache verify
+          sudo npm install
+          sudo npm run build
+      - name: zip dist folder
+        run: tar -czvf dist.tar.gz dist
+
+      - name: Install SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.DEV_SSH_KEY }}
+          name: id_rsa # optional
+          known_hosts: ${{ secrets.DEV_HOST }}
+          # config: ${{ secrets.CONFIG }} # ssh_config; optional
+          if_key_exists: fail # replace / ignore / fail; optional (defaults to fail)
+
+      - name: scp to ec2instance
+        run: |
+          ssh -o StrictHostKeyChecking=no <user_name>@<public_ip>
+          scp dist.tar.gz <user_name>@<public_ip>:<working_directory>
+      - name: executing remote ssh commands using ssh key
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DEV_HOST }}
+          username: ubuntu
+          key: ${{ secrets.DEV_SSH_KEY }}
+          port: 22
+          script: bash deploy.sh

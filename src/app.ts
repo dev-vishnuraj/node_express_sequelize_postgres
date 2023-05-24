@@ -24,7 +24,7 @@ class App {
 	public env: boolean;
 	// public paymentRun = new PaymentScheduler(); // Scheduler initialization
 
-	constructor(v1Routes: Routes[]) {
+	constructor(Routes: Routes[]) {
 		this.app = express();
 		this.port = process.env.PORT || 3000;
 		this.env = __PROD__;
@@ -32,7 +32,7 @@ class App {
 		this.connectToDatabase();
 		this.initializeMiddlewares();
 		this.initializeSwagger();
-		this.initializeV1Routes(v1Routes);
+		this.initializeRoutes(Routes);
 		this.initializeErrorHandling();
 		this.Scheduler();
 	}
@@ -105,7 +105,7 @@ class App {
 		}
 	}
 
-	private initializeV1Routes(routes: Routes[]) {
+	private initializeRoutes(routes: Routes[]) {
 		routes.forEach((route) => this.app.use('/v1', route.router));
 	}
 

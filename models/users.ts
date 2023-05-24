@@ -2,13 +2,13 @@
 // @ts-nocheck
 import { Model } from 'sequelize';
 module.exports = (sequelize: any, DataTypes: any) => {
-	class Users extends Model {
+	class users extends Model {
 		// @ts-ignore
 		static associate(models) {
 		}
 	}
 
-	Users.init(
+	users.init(
 		{
 			id: {
 				type: DataTypes.BIGINT,
@@ -39,8 +39,8 @@ module.exports = (sequelize: any, DataTypes: any) => {
 		},
 		{
 			sequelize,
-			modelName: 'Users',
+			modelName: 'users',
 		}
 	);
-	return Users;
+	return users;
 };

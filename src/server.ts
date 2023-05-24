@@ -1,16 +1,8 @@
 require('dotenv-safe').config();
 import App from './app';
-import IndexRoute from '../src/routes/index.route';
-import UserRoute from '../src/routes/user.route';
+import Routes from './router/routesConstructor';
 import validateEnv from '../src/utils/validateEnv';
 
 validateEnv();
-
-const app = new App(
-	[
-		new IndexRoute(),
-		new UserRoute(),
-	]
-);
-
+const app = new App(Routes);
 app.listen();

@@ -1,6 +1,6 @@
-const Users = require('../../models').Users;
-class UserService {
+const Users = require('../../../../models').Users;
 
+class UserService {
 	public async findAllUser() {
 		return await Users.findAll();
 	}

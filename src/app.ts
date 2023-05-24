@@ -22,7 +22,6 @@ class App {
 	public app: express.Application;
 	public port: string | number;
 	public env: boolean;
-	// public paymentRun = new PaymentScheduler(); // Scheduler initialization
 
 	constructor(Routes: Routes[]) {
 		this.app = express();

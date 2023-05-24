@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import validateVersion from '../utils/apiVersionController';
+import validateVersion from '../../../utils/apiVersionController';
 import UserService from '../services/user.service';
 
 class UserController {
